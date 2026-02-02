@@ -55,13 +55,13 @@ streamlit run app.py
 
 These components can be used for any retail client with minimal changes:
 
-| Module | Purpose |
-|--------|---------|
-| `parsers.py` | Handles common date formats, SKU variations |
-| `quality.py` | Configurable data quality checking framework |
-| `reconciliation.py` | Cross-system matching by ID or name |
-| `analysis.py` | Stockout risk, dead inventory, velocity calculations |
-| `insights.py` | AI insight generation with Pydantic structured outputs |
+| Module              | Purpose                                                |
+| ------------------- | ------------------------------------------------------ |
+| `parsers.py`        | Handles common date formats, SKU variations            |
+| `quality.py`        | Configurable data quality checking framework           |
+| `reconciliation.py` | Cross-system matching by ID or name                    |
+| `analysis.py`       | Stockout risk, dead inventory, velocity calculations   |
+| `insights.py`       | AI insight generation with Pydantic structured outputs |
 
 ### Client-Specific (src/clients/)
 
@@ -77,6 +77,7 @@ This contains hardcoded logic for this client:
 ## AI-Assisted Insights
 
 The project uses OpenAI's GPT-4 with structured outputs (Pydantic models) to:
+
 - Generate natural language summaries
 - Synthesize patterns across data points
 - Prioritize recommendations
@@ -130,7 +131,10 @@ See [FUTURE_WORK.md](FUTURE_WORK.md) for detailed production architecture plans,
 - **Self-Service Dashboard:** ECS-hosted Streamlit with Cognito auth
 
 ### Additional Enhancements
+
 - Fuzzy name matching for product reconciliation (embeddings-based)
 - Demand forecasting with Prophet for better stockout prediction
 - Historical trend analysis for velocity calculations
 - Anomaly detection for data quality issues
+
+![Retail Analystics Architecture Diagram](retail-analytics-architecture.png)
