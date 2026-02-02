@@ -1,0 +1,257 @@
+item_code,description,qty_adjusted,retail_price,days_since_last_sale,value_at_risk,category
+97054,Large Lamp,193.0,148.16,415.0,28594.88,Office
+96807,Classic Mirror,194.0,144.67,415.0,28065.979999999996,Kids
+20965,Luxury Mug Set,180.0,142.72,415.0,25689.6,Garden
+95981,Rustic Garden Tools,187.0,134.8,415.0,25207.600000000002,Bedroom
+72623,Basic Candle Holder,157.0,149.51,416.0,23473.07,Gifts
+10769,Handmade Towel Set,168.0,135.87,415.0,22826.16,Bedroom
+93211,Vintage Vase,173.0,130.04,415.0,22496.92,Seasonal
+82409,Deluxe Basket,164.0,136.42,415.0,22372.879999999997,Office
+94651,Modern Cutlery,159.0,137.08,415.0,21795.72,Bathroom
+21411,Classic Figurine,162.0,131.67,415.0,21330.539999999997,Kitchen
+58984,Deluxe Wrapping Paper,146.0,145.55,415.0,21250.300000000003,Kitchen
+56576,Large Clock,178.0,118.63,415.0,21116.14,Seasonal
+19474,Handmade Clock,174.0,114.49,415.0,19921.26,Bathroom
+43827,Modern Rug,162.0,122.87,415.0,19904.940000000002,Bathroom
+53585,Modern Towel Set,155.0,128.2,415.0,19871.0,Home Decor
+40535,Rustic Cutlery,132.0,148.0,415.0,19536.0,Gifts
+99789,Mini Mirror,196.0,99.14,415.0,19431.44,Home Decor
+36736,Vintage Lamp,128.0,147.1,415.0,18828.8,Kids
+79163,Modern Pen Holder,195.0,92.9,415.0,18115.5,Kids
+87373,Set of Plate Set,169.0,104.29,415.0,17625.010000000002,Kitchen
+31959,Organic Plate Set,163.0,107.09,415.0,17455.670000000002,Office
+34538,Classic Picture Frame,157.0,110.23,415.0,17306.11,Outdoor
+77435,Modern Desk Organizer,144.0,119.78,415.0,17248.32,Outdoor
+22666,Professional Storage Box,180.0,94.92,415.0,17085.6,Garden
+91734,Set of Desk Organizer,198.0,85.54,415.0,16936.920000000002,Kitchen
+NEW90012,New Product 13 - Not Yet Active,194.0,87.24,999.0,16924.559999999998,Garden
+22688,Large Picture Frame,125.0,135.03,415.0,16878.75,Gifts
+25707,Luxury Notebook,144.0,116.99,415.0,16846.559999999998,Kids
+47504,Modern Vase,173.0,94.65,415.0,16374.45,Garden
+33776,Modern Figurine,192.0,85.03,415.0,16325.76,Kitchen
+60015,Professional Desk Organizer,112.0,145.64,415.0,16311.679999999998,Bedroom
+40306,Organic Mug Set,198.0,82.16,415.0,16267.679999999998,Outdoor
+12568,Premium Desk Organizer,167.0,96.26,415.0,16075.42,Kitchen
+82082,Set of Pen Holder,166.0,96.05,415.0,15944.3,Kitchen
+87189,Classic Figurine,138.0,114.24,415.0,15765.119999999999,Garden
+76842,Deluxe Bird Feeder,119.0,132.11,415.0,15721.090000000002,Outdoor
+26371,Vintage Figurine,191.0,82.23,415.0,15705.93,Gifts
+43159,Premium Bird Feeder,106.0,142.81,415.0,15137.86,Kids
+54262,Classic Clock,117.0,128.57,415.0,15042.689999999999,Home Decor
+70263,Vintage Vase,116.0,129.47,415.0,15018.52,Garden
+78840,Budget Vase,110.0,136.1,415.0,14971.0,Seasonal
+72955,Classic Garden Tools,119.0,124.84,415.0,14855.960000000001,Bedroom
+62251,Premium Candle,165.0,89.63,415.0,14788.949999999999,Bathroom
+NEW90009,New Product 10 - Not Yet Active,151.0,97.62,999.0,14740.62,Home Decor
+58555,Professional Figurine,136.0,107.41,415.0,14607.76,Office
+77214,Large Garden Tools,108.0,130.38,415.0,14081.039999999999,Garden
+52107,Classic Planter,196.0,71.81,415.0,14074.76,Garden
+81932,Luxury Plate Set,98.0,142.76,415.0,13990.48,Garden
+NEW90008,New Product 9 - Not Yet Active,189.0,73.36,999.0,13865.039999999999,Office
+36854,Large Clock,190.0,72.24,415.0,13725.599999999999,Bedroom
+99474,Rustic Bird Feeder,98.0,139.36,415.0,13657.28,Home Decor
+35342,Organic Plate Set,183.0,73.72,415.0,13490.76,Bedroom
+48044,Luxury Figurine,90.0,148.98,415.0,13408.199999999999,Kitchen
+73335,Professional Candle,106.0,124.27,415.0,13172.619999999999,Office
+44766,Rustic Bird Feeder,144.0,90.54,415.0,13037.76,Seasonal
+97939,Organic Cushion,103.0,126.56,415.0,13035.68,Seasonal
+49099,Modern Mirror,97.0,134.22,415.0,13019.34,Bedroom
+59811,Vintage Wrapping Paper,123.0,105.11,415.0,12928.53,Home Decor
+37266,Mini Candle,99.0,130.58,415.0,12927.420000000002,Kids
+92798,Professional Gift Box,97.0,130.95,415.0,12702.15,Kitchen
+61005,Budget Diffuser,159.0,79.53,415.0,12645.27,Gifts
+NEW90004,New Product 5 - Not Yet Active,157.0,79.49,999.0,12479.929999999998,Outdoor
+90356,Deluxe Figurine,187.0,65.15,415.0,12183.050000000001,Gifts
+77221,Vintage Desk Organizer,105.0,114.41,415.0,12013.05,Bedroom
+85766,Mini Rug,149.0,80.44,415.0,11985.56,Home Decor
+75697,Professional Gift Box,151.0,76.43,415.0,11540.93,Outdoor
+89309,Modern Storage Box,81.0,140.25,415.0,11360.25,Kids
+NEW90014,New Product 15 - Not Yet Active,134.0,84.15,999.0,11276.1,Gifts
+18792,Modern Planter,97.0,115.42,415.0,11195.74,Home Decor
+45920,Rustic Desk Organizer,75.0,148.06,415.0,11104.5,Bedroom
+88953,Basic Candle,186.0,59.56,415.0,11078.16,Gifts
+NEW90003,New Product 4 - Not Yet Active,187.0,59.02,999.0,11036.74,Gifts
+31976,Luxury Bird Feeder,137.0,80.42,415.0,11017.54,Kids
+31834,Rustic Storage Box,191.0,56.93,415.0,10873.63,Bathroom
+47194,Professional Desk Organizer,92.0,117.58,415.0,10817.36,Outdoor
+33664,Mini Notebook,140.0,76.36,415.0,10690.4,Seasonal
+94478,Deluxe Clock,121.0,88.15,415.0,10666.150000000001,Garden
+77121,Organic Rug,178.0,59.27,415.0,10550.060000000001,Kitchen
+79092,Classic Towel Set,124.0,84.68,415.0,10500.320000000002,Seasonal
+60636,Deluxe Cushion,174.0,60.23,415.0,10480.019999999999,Home Decor
+18110,Set of Vase,158.0,65.65,415.0,10372.7,Office
+65820,Classic Vase,69.0,149.96,415.0,10347.24,Bedroom
+99812,Classic Storage Box,113.0,89.59,415.0,10123.67,Seasonal
+58925,Handmade Notebook,95.0,102.4,415.0,9728.0,Kids
+51606,Handmade Rug,72.0,133.72,415.0,9627.84,Bedroom
+72592,Budget Candle Holder,90.0,105.88,415.0,9529.199999999999,Kids
+75725,Vintage Storage Box,177.0,52.66,415.0,9320.82,Kitchen
+47157,Vintage Picture Frame,91.0,101.8,415.0,9263.8,Bathroom
+71087,Mini Rug,133.0,68.43,415.0,9101.19,Outdoor
+65591,Premium Mirror,80.0,113.18,415.0,9054.400000000001,Gifts
+NEW90013,New Product 14 - Not Yet Active,103.0,85.98,999.0,8855.94,Outdoor
+32299,Classic Candle Holder,62.0,141.99,415.0,8803.380000000001,Garden
+55758,Luxury Plate Set,132.0,66.51,415.0,8779.320000000002,Seasonal
+12911,Organic Plate Set,63.0,138.53,415.0,8727.39,Garden
+92386,Handmade Storage Box,148.0,58.94,415.0,8723.119999999999,Bathroom
+74505,Budget Ornament,154.0,56.24,415.0,8660.960000000001,Kids
+64886,Classic Mirror,58.0,148.62,415.0,8619.960000000001,Seasonal
+12747,Basic Wrapping Paper,122.0,70.02,415.0,8542.439999999999,Kitchen
+81910,Handmade Cutlery,191.0,44.64,415.0,8526.24,Office
+85450,Classic Gift Box,73.0,116.5,415.0,8504.5,Kids
+11802,Large Cushion,144.0,58.49,415.0,8422.56,Outdoor
+51090,Large Wrapping Paper,73.0,113.88,415.0,8313.24,Gifts
+94654,Mini Desk Organizer,81.0,102.52,415.0,8304.119999999999,Office
+48623,Deluxe Basket,156.0,52.67,415.0,8216.52,Seasonal
+69150,Premium Coaster Set,169.0,47.52,415.0,8030.88,Kitchen
+73704,Modern Wall Art,55.0,145.63,415.0,8009.65,Kids
+48660,Premium Pen Holder,169.0,45.22,415.0,7642.179999999999,Kitchen
+12695,Modern Figurine,78.0,96.0,415.0,7488.0,Bedroom
+54131,Deluxe Picture Frame,53.0,139.96,415.0,7417.88,Garden
+26023,Classic Rug,109.0,67.2,415.0,7324.8,Garden
+17392,Professional Coaster Set,74.0,96.84,415.0,7166.16,Gifts
+28141,Organic Mug Set,97.0,72.96,415.0,7077.119999999999,Bathroom
+33897,Basic Cutlery,66.0,106.64,415.0,7038.24,Bathroom
+45773,Modern Planter,61.0,114.09,415.0,6959.49,Garden
+77563,Handmade Storage Box,96.0,70.91,415.0,6807.36,Home Decor
+18155,Large Basket,92.0,72.07,415.0,6630.44,Bathroom
+71858,Vintage Storage Box,91.0,71.07,415.0,6467.369999999999,Kids
+56843,Handmade Pen Holder,92.0,69.87,415.0,6428.040000000001,Outdoor
+15530,Luxury Diffuser,179.0,35.88,415.0,6422.52,Bathroom
+50774,Mini Pen Holder,79.0,80.85,415.0,6387.15,Kids
+15258,Luxury Basket,47.0,135.67,415.0,6376.49,Outdoor
+52941,Classic Desk Organizer,67.0,94.63,415.0,6340.21,Seasonal
+63707,Organic Bird Feeder,46.0,136.28,415.0,6268.88,Office
+19692,Budget Picture Frame,71.0,85.97,415.0,6103.87,Home Decor
+80467,Classic Picture Frame,194.0,31.37,415.0,6085.78,Bedroom
+25795,Handmade Clock,198.0,30.73,415.0,6084.54,Home Decor
+13890,Modern Picture Frame,88.0,69.02,415.0,6073.759999999999,Gifts
+23986,Rustic Garden Tools,44.0,134.09,415.0,5899.96,Bathroom
+83656,Rustic Cutlery,52.0,113.38,415.0,5895.76,Gifts
+35939,Classic Basket,154.0,38.15,415.0,5875.099999999999,Seasonal
+10860,Vintage Storage Box,51.0,113.84,415.0,5805.84,Kitchen
+28431,Basic Diffuser,60.0,96.62,415.0,5797.200000000001,Outdoor
+33247,Large Desk Organizer,39.0,144.52,415.0,5636.280000000001,Bathroom
+62662,Set of Storage Box,100.0,55.12,415.0,5512.0,Seasonal
+99045,Vintage Pen Holder,186.0,29.5,415.0,5487.0,Bedroom
+52557,Classic Vase,78.0,70.33,415.0,5485.74,Garden
+NEW90010,New Product 11 - Not Yet Active,73.0,73.13,999.0,5338.49,Bedroom
+NEW90005,New Product 6 - Not Yet Active,75.0,71.17,999.0,5337.75,Bathroom
+58190,Professional Desk Organizer,58.0,89.73,415.0,5204.34,Home Decor
+16265,Organic Clock,78.0,64.83,415.0,5056.74,Seasonal
+99475,Deluxe Basket,39.0,122.86,415.0,4791.54,Home Decor
+62256,Large Wall Art,57.0,82.73,415.0,4715.610000000001,Bedroom
+88603,Luxury Lamp,44.0,106.23,415.0,4674.12,Home Decor
+96202,Modern Throw Blanket,132.0,34.92,415.0,4609.4400000000005,Seasonal
+65680,Luxury Garden Tools,115.0,39.82,415.0,4579.3,Kitchen
+25708,Set of Wrapping Paper,57.0,78.0,415.0,4446.0,Home Decor
+21111,Set of Gift Box,59.0,75.26,415.0,4440.34,Kitchen
+NEW90001,New Product 2 - Not Yet Active,154.0,28.4,999.0,4373.599999999999,Seasonal
+50757,Vintage Rug,37.0,117.69,415.0,4354.53,Home Decor
+64384,Mini Coaster Set,78.0,55.5,415.0,4329.0,Home Decor
+NEW90002,New Product 3 - Not Yet Active,127.0,33.71,999.0,4281.17,Home Decor
+19268,Deluxe Cutlery,114.0,37.42,415.0,4265.88,Outdoor
+35184,Handmade Diffuser,184.0,22.49,415.0,4138.16,Home Decor
+98614,Vintage Garden Tools,69.0,58.72,415.0,4051.68,Kids
+60859,Luxury Desk Organizer,170.0,23.57,415.0,4006.9,Kids
+62733,Professional Wall Art,28.0,142.68,415.0,3995.04,Bathroom
+NEW90000,New Product 1 - Not Yet Active,66.0,59.82,999.0,3948.12,Gifts
+89575,Mini Candle Holder,137.0,28.58,415.0,3915.4599999999996,Kitchen
+50397,Deluxe Throw Blanket,175.0,22.23,415.0,3890.25,Seasonal
+70713,Budget Desk Organizer,49.0,79.19,415.0,3880.31,Gifts
+44698,Modern Diffuser,83.0,45.4,415.0,3768.2,Kitchen
+90038,Luxury Mug Set,67.0,55.88,415.0,3743.96,Bedroom
+80592,Classic Throw Blanket,38.0,93.95,415.0,3570.1,Kids
+NEW90007,New Product 8 - Not Yet Active,110.0,32.45,999.0,3569.5000000000005,Bedroom
+49353,Vintage Ornament,57.0,62.5,415.0,3562.5,Kids
+33483,Premium Towel Set,28.0,124.17,415.0,3476.76,Office
+29457,Professional Ornament,24.0,142.35,415.0,3416.3999999999996,Home Decor
+97498,Modern Gift Box,62.0,54.42,415.0,3374.04,Outdoor
+86552,Basic Lamp,193.0,17.2,415.0,3319.6,Office
+27159,Handmade Vase,194.0,16.8,415.0,3259.2000000000003,Garden
+57254,Professional Rug,78.0,41.6,415.0,3244.8,Seasonal
+95305,Basic Basket,176.0,18.24,415.0,3210.24,Bedroom
+13561,Luxury Lamp,99.0,32.28,415.0,3195.7200000000003,Outdoor
+18571,Handmade Lamp,39.0,81.52,415.0,3179.2799999999997,Bedroom
+44754,Basic Basket,188.0,16.86,415.0,3169.68,Garden
+71373,Mini Diffuser,49.0,63.51,415.0,3111.99,Bedroom
+97313,Modern Diffuser,141.0,21.97,415.0,3097.77,Bathroom
+13748,Modern Rug,124.0,24.77,415.0,3071.48,Garden
+97092,Organic Storage Box,129.0,23.69,415.0,3056.01,Kids
+32662,Handmade Pen Holder,187.0,16.27,415.0,3042.49,Outdoor
+12693,Budget Plate Set,21.0,143.34,415.0,3010.14,Bathroom
+76803,Handmade Wrapping Paper,159.0,18.22,415.0,2896.98,Home Decor
+84065,Set of Bird Feeder,61.0,46.43,415.0,2832.23,Garden
+31918,Basic Mug Set,26.0,108.44,415.0,2819.44,Kitchen
+64268,Luxury Storage Box,22.0,127.11,415.0,2796.42,Seasonal
+NEW90011,New Product 12 - Not Yet Active,55.0,50.01,999.0,2750.5499999999997,Kids
+35658,Modern Vase,19.0,142.84,415.0,2713.96,Outdoor
+45222,Professional Candle Holder,22.0,123.0,415.0,2706.0,Bathroom
+68053,Vintage Planter,28.0,94.94,415.0,2658.3199999999997,Seasonal
+33419,Budget Wrapping Paper,29.0,91.15,415.0,2643.3500000000004,Seasonal
+90077,Set of Ornament,152.0,17.3,415.0,2629.6,Office
+42606,Basic Cushion,36.0,72.96,415.0,2626.56,Bedroom
+34300,Premium Storage Box,44.0,59.36,415.0,2611.84,Home Decor
+32671,Set of Vase,146.0,17.86,415.0,2607.56,Home Decor
+20627,Classic Diffuser,100.0,25.73,415.0,2573.0,Garden
+26646,Set of Coaster Set,124.0,20.54,415.0,2546.96,Seasonal
+73734,Classic Mug Set,26.0,97.93,415.0,2546.1800000000003,Home Decor
+10206,Handmade Notebook,20.0,122.53,415.0,2450.6,Kids
+74044,Handmade Picture Frame,59.0,40.87,415.0,2411.33,Bedroom
+NEW90006,New Product 7 - Not Yet Active,58.0,41.3,999.0,2395.3999999999996,Seasonal
+72003,Large Candle,25.0,95.2,415.0,2380.0,Kids
+36309,Handmade Towel Set,83.0,27.03,415.0,2243.4900000000002,Garden
+10854,Deluxe Candle Holder,28.0,76.43,415.0,2140.04,Office
+62995,Luxury Wall Art,123.0,17.11,415.0,2104.5299999999997,Garden
+53001,Handmade Candle,104.0,19.66,415.0,2044.64,Garden
+83530,Rustic Basket,32.0,61.88,415.0,1980.16,Office
+97538,Luxury Ornament,168.0,11.59,415.0,1947.12,Office
+94896,Premium Garden Tools,17.0,113.5,415.0,1929.5,Bedroom
+78148,Classic Figurine,122.0,15.55,415.0,1897.1000000000001,Office
+81211,Modern Cushion,89.0,21.12,415.0,1879.68,Garden
+40080,Deluxe Cutlery,21.0,86.34,415.0,1813.14,Office
+12811,Modern Bird Feeder,169.0,10.7,415.0,1808.3,Bedroom
+65016,Handmade Ornament,191.0,9.17,415.0,1751.47,Home Decor
+66250,Handmade Gift Box,14.0,120.91,415.0,1692.74,Kids
+21394,Basic Gift Box,125.0,13.35,415.0,1668.75,Home Decor
+77172,Classic Diffuser,38.0,42.45,415.0,1613.1000000000001,Bathroom
+76199,Large Garden Tools,28.0,55.84,415.0,1563.52,Garden
+62083,Large Diffuser,46.0,32.88,415.0,1512.48,Home Decor
+18680,Handmade Ornament,11.0,121.9,415.0,1340.9,Kids
+47065,Professional Towel Set,197.0,6.65,415.0,1310.0500000000002,Seasonal
+66044,Mini Throw Blanket,87.0,13.17,415.0,1145.79,Gifts
+36105,Set of Gift Box,11.0,102.38,415.0,1126.1799999999998,Seasonal
+74820,Classic Towel Set,56.0,19.95,415.0,1117.2,Office
+99135,Professional Pen Holder,22.0,49.88,415.0,1097.3600000000001,Garden
+75733,Large Lamp,100.0,10.93,415.0,1093.0,Gifts
+93763,Deluxe Mirror,23.0,45.15,415.0,1038.45,Home Decor
+95616,Deluxe Throw Blanket,14.0,71.57,415.0,1001.9799999999999,Kids
+41551,Professional Diffuser,12.0,76.69,415.0,920.28,Gifts
+81295,Professional Vase,26.0,35.36,415.0,919.36,Kids
+18392,Set of Cushion,6.0,146.29,415.0,877.74,Gifts
+59080,Professional Picture Frame,36.0,23.73,415.0,854.28,Kids
+21534,Handmade Notebook,59.0,13.16,415.0,776.44,Home Decor
+92948,Large Wall Art,76.0,8.82,415.0,670.32,Home Decor
+16910,Rustic Mirror,11.0,59.59,415.0,655.49,Gifts
+56717,Premium Bird Feeder,40.0,16.0,415.0,640.0,Gifts
+77863,Set of Notebook,20.0,29.99,415.0,599.8,Kitchen
+11016,Professional Ornament,27.0,22.04,415.0,595.0799999999999,Garden
+49504,Basic Clock,12.0,45.74,415.0,548.88,Bathroom
+97455,Mini Mirror,21.0,25.13,415.0,527.73,Kids
+61214,Deluxe Wrapping Paper,32.0,15.7,415.0,502.4,Office
+83969,Premium Garden Tools,5.0,94.64,415.0,473.2,Home Decor
+79479,Rustic Garden Tools,8.0,58.74,415.0,469.92,Seasonal
+96779,Vintage Diffuser,41.0,11.26,415.0,461.65999999999997,Garden
+22185,Large Notebook,66.0,6.76,415.0,446.15999999999997,Office
+93879,Basic Wall Art,14.0,31.76,415.0,444.64000000000004,Kids
+71228,Modern Planter,5.0,85.31,415.0,426.55,Bathroom
+38693,Rustic Cushion,8.0,51.3,415.0,410.4,Gifts
+93104,Luxury Lamp,53.0,6.57,415.0,348.21000000000004,Gifts
+28047,Professional Throw Blanket,16.0,21.47,415.0,343.52,Outdoor
+77270,Classic Basket,24.0,13.86,415.0,332.64,Bathroom
+97897,Premium Pen Holder,12.0,26.81,415.0,321.71999999999997,Office
+16776,Organic Picture Frame,13.0,24.43,415.0,317.59,Seasonal
+74925,Set of Basket,5.0,51.41,415.0,257.04999999999995,Gifts
+23545,Classic Cushion,26.0,7.11,415.0,184.86,Kids
+90623,Rustic Vase,5.0,30.67,415.0,153.35000000000002,Garden
+49384,Professional Vase,7.0,10.32,415.0,72.24000000000001,Kids

@@ -1,0 +1,29 @@
+# Environment
+.env
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# IDE
+.idea/
+.claude/
+.vscode/
+*.swp
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Processed data (generated, not committed)
+data/processed/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build
+*.egg-info/
+dist/
+build/
+
+# Note: data/raw/ files ARE committed for reviewer reproducibility
