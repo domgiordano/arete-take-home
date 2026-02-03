@@ -151,8 +151,9 @@ class DataQualityChecker:
                     invalid_mask = ~col_values.isin(valid_values)
                 invalid = invalid_mask.sum()
                 samples = col_values[invalid_mask].head(5).tolist()
-            elif validator:
-                mask = df[column].dropna().apply(lambda x: not validator(x))
+            elif validator is not None:
+                validate_fn = validator  # Local binding for type narrowing
+                mask = df[column].dropna().apply(lambda x: not validate_fn(x))
                 invalid = mask.sum()
                 samples = df.loc[mask[mask].index, column].head(5).tolist()
             else:

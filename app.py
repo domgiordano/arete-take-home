@@ -12,10 +12,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 import streamlit as st
-import pandas as pd
-import plotly.express as px
 import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 
 from clients.retail_client import RetailClientLoader
 from core.analysis import (
@@ -162,18 +159,19 @@ with left_col:
         display_df["Daily Sales"] = display_df["Daily Sales"].round(1)
         display_df["Days Left"] = display_df["Days Left"].round(0).astype(int)
 
-        # Color code by risk
-        def highlight_risk(row):
-            if row["Risk"] == "critical":
-                return ["background-color: #ffcccc"] * len(row)
-            elif row["Risk"] == "high":
-                return ["background-color: #ffe6cc"] * len(row)
-            return [""] * len(row)
+        # Add risk emoji for better visibility
+        risk_emoji = {"critical": "🔴", "high": "🟠", "medium": "🟡"}
+        display_df["Risk"] = display_df["Risk"].apply(lambda x: f"{risk_emoji.get(x, '')} {x.upper()}")
 
         st.dataframe(
-            display_df.head(20).style.apply(highlight_risk, axis=1),
+            display_df.head(20),
             use_container_width=True,
             hide_index=True,
+            column_config={
+                "Stock": st.column_config.NumberColumn(format="%d"),
+                "Daily Sales": st.column_config.NumberColumn(format="%.1f"),
+                "Days Left": st.column_config.NumberColumn(format="%d"),
+            }
         )
 
         st.caption(f"Showing top 20 of {len(filtered)} items at risk")

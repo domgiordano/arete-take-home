@@ -9,7 +9,6 @@ from typing import Literal
 from pydantic import BaseModel, Field
 from openai import OpenAI
 import json
-import os
 
 
 class StockoutRisk(BaseModel):
@@ -158,7 +157,10 @@ Be direct and specific. Avoid jargon. Focus on what matters to the business.""",
             response_format=InventoryHealthReport,
         )
 
-        return response.choices[0].message.parsed
+        result = response.choices[0].message.parsed
+        if result is None:
+            raise ValueError("Failed to parse structured response from OpenAI for Generate Insights")
+        return result
 
     def _build_prompt(
         self,
@@ -238,4 +240,7 @@ Keep it under 400 words."""
             ],
         )
 
-        return response.choices[0].message.content
+        result = response.choices[0].message.content
+        if result is None:
+            raise ValueError("Failed to parse structured response from OpenAI for Executive Summary")
+        return result

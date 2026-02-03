@@ -8,7 +8,7 @@
 
 ## The Bottom Line
 
-Your inventory systems are out of sync, and it's costing you money. We found **significant capital tied up in dead stock**, several products at **immediate risk of stockout**, and **data quality issues** that make it hard to trust any single system.
+Your inventory is critically low across the board. **94% of products (247 of 265) will stock out within 7 days** at current sales velocity. We also found **$121K tied up in dead stock**, and **data quality issues** that make ongoing inventory management unreliable.
 
 ---
 
@@ -16,31 +16,32 @@ Your inventory systems are out of sync, and it's costing you money. We found **s
 
 | Metric | Value |
 |--------|-------|
-| Total Inventory Value | ~$1.2M |
-| Products at Stockout Risk | 40+ items |
-| Critical (≤7 days stock) | 8-12 items |
-| Dead Inventory Value | ~$85K+ |
-| Items Below Reorder Level | 50+ items |
-| Items with Manual Overrides | 15+ items |
+| Total Inventory Value | $1,976,208 |
+| Products at Stockout Risk | 250 items (94% of catalog) |
+| Critical (≤7 days stock) | 247 items |
+| Dead Inventory Value | $121,174 |
+| Items Below Reorder Level | 48 items |
+| Items with Manual Overrides | 34 items |
 
 ---
 
 ## Immediate Actions Required
 
-### 1. Reorder These Products Now
-Several products will be out of stock within the week if not reordered immediately. The ops team should prioritize:
-- Fast-moving Home Decor items with less than 7 days of stock
-- Seasonal items that can't be back-ordered quickly
+### 1. Emergency Reorder Required
+247 products (94% of inventory) have less than 7 days of stock remaining. This is a company-wide stockout crisis. The ops team needs to:
+- Immediately place orders with all major vendors
+- Prioritize highest-velocity items first
+- Consider expedited shipping for critical SKUs
 
-**Risk if not addressed:** Lost sales, disappointed customers, potential damage to vendor relationships.
+**Risk if not addressed:** Widespread stockouts, significant lost revenue, customer attrition.
 
-### 2. Address Dead Inventory (~$85K)
-Products sitting for 60+ days without a sale are tying up capital. Consider:
+### 2. Address Dead Inventory ($121K)
+15 products sitting for 60+ days without a sale are tying up capital. Consider:
 - Markdown and clearance programs
 - Bundle deals with faster-moving items
 - Return-to-vendor agreements if available
 
-**Opportunity:** Free up $50-80K in working capital.
+**Opportunity:** Free up ~$100K in working capital.
 
 ### 3. Fix the Data Quality Issues
 
@@ -55,12 +56,12 @@ The ops team is already working around this by putting corrections in spreadshee
 
 ## Channel Performance
 
-| Channel | Revenue | Avg Order | Return Rate |
-|---------|---------|-----------|-------------|
-| In-Store | ~$25M | ~$55 | ~8% |
-| Online | ~$5.5M | ~$48 | ~5% |
+| Channel | Revenue | Avg Transaction | Return Rate |
+|---------|---------|-----------------|-------------|
+| In-Store | $642.9M | $1,391 | 3.2% |
+| Online | $23.2M | $232 | 6.3% |
 
-**Insight:** In-store drives 80%+ of revenue but has a higher return rate. Online has a lower average order value but customers are more committed (fewer returns).
+**Insight:** In-store drives 97% of revenue with higher transaction values (likely multiple items per visit). Online has a higher return rate, suggesting potential issues with product expectations or sizing.
 
 ---
 

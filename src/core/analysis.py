@@ -37,6 +37,8 @@ def compute_sales_velocity(
     # Use reference date or max date in data
     if reference_date is None:
         reference_date = transactions_df[date_col].max()
+        if pd.isna(reference_date):
+            return pd.DataFrame(columns=[sku_col, "total_sold", "avg_daily_sales"])
 
     # Filter to sales only (positive quantities) and recent period
     cutoff = reference_date - timedelta(days=lookback_days)
@@ -162,7 +164,8 @@ def identify_dead_inventory(
 
     # Compute days since last sale
     today = datetime.now()
-    merged["days_since_last_sale"] = (today - merged["last_sale_date"]).dt.days
+    last_sale_dates = pd.to_datetime(merged["last_sale_date"])
+    merged["days_since_last_sale"] = (today - last_sale_dates).dt.days
     merged["days_since_last_sale"] = merged["days_since_last_sale"].fillna(999)
 
     # Compute value at risk

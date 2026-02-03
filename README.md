@@ -111,7 +111,7 @@ See `outputs/executive_summary.md` for the CFO-ready summary.
 ### Recommendations
 
 1. **Immediate:** Reorder critical stockout items
-2. **This quarter:** Clearance program for dead inventory (~$85K value)
+2. **This quarter:** Clearance program for dead inventory ($121K value)
 3. **System fix:** Implement unified product ID across systems
 4. **Process fix:** Move inventory adjustments from Notes to proper fields
 

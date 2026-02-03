@@ -7,9 +7,7 @@ These parsers handle the messy reality of retail data:
 - Case normalization
 """
 
-import re
 from datetime import datetime
-from typing import Protocol, Callable
 import pandas as pd
 
 

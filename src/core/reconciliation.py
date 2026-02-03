@@ -187,7 +187,7 @@ class ReconciliationEngine:
             if matched_idx is None:
                 for match_type_name, matcher in self._matchers:
                     result = matcher(pd.Series([source_key]), self.target_df)
-                    if pd.notna(result.iloc[0]):
+                    if result is not None and pd.notna(result.iloc[0]):
                         matched_idx = result.iloc[0]
                         match_type = MatchType(match_type_name)
                         confidence = 1.0
