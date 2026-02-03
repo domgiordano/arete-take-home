@@ -89,9 +89,6 @@ class InventoryHealthReport(BaseModel):
     data_quality_recommendations: list[DataQualityRecommendation] = Field(
         description="What to fix in the source systems"
     )
-    key_metrics: dict[str, float | int | str] = Field(
-        description="Key numbers the CFO should know"
-    )
 
 
 class InsightGenerator:
