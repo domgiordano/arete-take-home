@@ -1,14 +1,16 @@
 {
-  "total_skus_in_inventory": 265,
-  "total_inventory_value": 1976207.79,
+  "total_skus_in_inventory": 205,
+  "total_inventory_value": 1971539.8299999998,
   "total_pos_transactions": 502505,
   "total_pos_revenue": 642942181.0999999,
   "total_ecom_orders": 125000,
   "total_ecom_revenue": 23232282.810000002,
-  "products_at_stockout_risk": 250,
-  "critical_stockout_count": 247,
-  "dead_inventory_value": 1973978.7699999998,
-  "items_below_reorder_level": 48,
-  "items_with_manual_overrides": 34,
-  "pos_return_rate": 8.70955528391082
+  "products_at_stockout_risk": 190,
+  "critical_stockout_count": 97,
+  "dead_inventory_value": 121173.51,
+  "items_below_reorder_level": 31,
+  "items_with_manual_overrides": 205,
+  "pos_return_rate": 8.70955528391082,
+  "duplicate_product_names": 51,
+  "total_unique_products": 205
 }

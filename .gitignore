@@ -26,4 +26,6 @@ Thumbs.db
 dist/
 build/
 
+# Presentation prep
+presentation/
 # Note: data/raw/ files ARE committed for reviewer reproducibility

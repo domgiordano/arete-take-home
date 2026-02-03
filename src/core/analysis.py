@@ -128,7 +128,6 @@ def identify_stockout_risks(
 
     return at_risk
 
-
 def identify_dead_inventory(
     inventory_df: pd.DataFrame,
     transactions_df: pd.DataFrame,
@@ -139,12 +138,17 @@ def identify_dead_inventory(
     txn_date_col: str = "date_parsed",
     txn_qty_col: str = "quantity",
     dead_days_threshold: int = 60,
-    min_quantity: int = 5,
+    min_quantity: int = 1,
+    reference_date: datetime | None = None,
 ) -> pd.DataFrame:
     """
     Identify slow-moving or dead inventory.
 
-    Dead inventory = no sales in X days + quantity on hand > threshold
+    Dead inventory = no sales in X days + quantity on hand >= threshold
+
+    Args:
+        reference_date: Date to use as "today" for calculating days since last sale.
+                       Defaults to max date in transactions data.
 
     Returns DataFrame sorted by value at risk.
     """
@@ -162,25 +166,29 @@ def identify_dead_inventory(
         last_sales, left_on=inv_sku_col, right_on=txn_sku_col, how="left"
     )
 
-    # Compute days since last sale
-    today = datetime.now()
-    last_sale_dates = pd.to_datetime(merged["last_sale_date"])
-    merged["days_since_last_sale"] = (today - last_sale_dates).dt.days
-    merged["days_since_last_sale"] = merged["days_since_last_sale"].fillna(999)
+    # 1. Handle the None case first (Type Narrowing)
+    if reference_date is None:
+        reference_date = transactions_df[txn_date_col].max()
+    
+    # 2. Add a fallback in case the dataframe was empty
+    if pd.isna(reference_date):
+        reference_date = datetime.now()
 
-    # Compute value at risk
+    # 3. Ensure last_sale_dates is a Datetime Series
+    last_sale_dates = pd.to_datetime(merged["last_sale_date"])
+    
+    # 4. Perform the math (Pylance is happy now)
+    merged["days_since_last_sale"] = (reference_date - last_sale_dates).dt.days
+
+    merged["days_since_last_sale"] = merged["days_since_last_sale"].fillna(999)
     merged["value_at_risk"] = merged[inv_qty_col] * merged[inv_price_col]
 
-    # Filter to dead inventory
     dead = merged[
         (merged["days_since_last_sale"] >= dead_days_threshold)
         & (merged[inv_qty_col] >= min_quantity)
     ].copy()
 
-    # Sort by value at risk
-    dead = dead.sort_values("value_at_risk", ascending=False)
-
-    return dead
+    return dead.sort_values("value_at_risk", ascending=False)
 
 
 def compute_channel_comparison(

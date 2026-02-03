@@ -7,11 +7,13 @@ Run with: streamlit run app.py
 
 import sys
 from pathlib import Path
+from datetime import datetime
 
 # Add src to path
 sys.path.insert(0, str(Path(__file__).parent / "src"))
 
 import streamlit as st
+import pandas as pd
 import plotly.graph_objects as go
 
 from clients.retail_client import RetailClientLoader
@@ -20,7 +22,6 @@ from core.analysis import (
     identify_stockout_risks,
     identify_dead_inventory,
     compute_channel_comparison,
-    compute_key_metrics,
 )
 
 # Page config
@@ -34,53 +35,126 @@ st.title("📦 Inventory Health Dashboard")
 st.caption("Retail Client - December 2024 Analysis")
 
 
+def aggregate_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Aggregate duplicate products by normalized description.
+
+    Same product with multiple item_codes gets combined:
+    - qty_adjusted: SUM (total inventory across all codes)
+    - reorder_level: MAX (most conservative threshold)
+    - retail_price: MEAN (average for valuation)
+    - Other fields: FIRST (keep one representative value)
+    """
+    result = df.groupby('description_normalized').agg({
+        'item_code': 'first',
+        'description': 'first',
+        'category': 'first',
+        'qty_on_hand': 'sum',
+        'qty_adjusted': 'sum',
+        'reorder_level': 'max',
+        'retail_price': 'mean',
+        'physical_count_override': 'first',
+    }).reset_index()
+
+    # Recalculate below_reorder_level AFTER aggregation
+    # (aggregated qty vs aggregated reorder level)
+    result['below_reorder_level'] = result['qty_adjusted'] < result['reorder_level']
+
+    return result
+
+
 @st.cache_data
 def load_data():
     """Load and process all data (cached for performance)."""
     loader = RetailClientLoader(Path("data/raw"))
     data = loader.load_all()
 
-    # Compute velocity
+    # --- DATA QUALITY FIXES ---
+    # Note: description_normalized (inventory) and product_name_normalized (POS)
+    # are already created by the RetailClientLoader
+
+    # 1. Aggregate duplicates in inventory (51 products have multiple item codes)
+    inv_aggregated = aggregate_duplicates(data.inventory)
+
+    # 2. Filter placeholder dates (1900-01-01) before velocity calculation
+    pos_clean = data.pos_transactions[
+        data.pos_transactions['date_parsed'] >= datetime(2020, 1, 1)
+    ].copy()
+
+    # 3. Use reference date from data (not system date) - data is from Dec 2024
+    reference_date = pos_clean['date_parsed'].max()
+
+    # Compute velocity using product_name_normalized (POS column name)
     velocity = compute_sales_velocity(
-        data.pos_transactions,
-        sku_col="sku_normalized",
+        pos_clean,
+        sku_col="product_name_normalized",
         qty_col="quantity",
         date_col="date_parsed",
+        reference_date=reference_date,
     )
 
-    # Compute stockout risks
+    # Compute stockout risks with CORRECT thresholds (3/7/14 for high-velocity retail)
+    # Note: inventory uses description_normalized, velocity uses product_name_normalized
+    # These should match as they're both normalized product names
     stockout = identify_stockout_risks(
-        data.inventory,
+        inv_aggregated,
         velocity,
-        inv_sku_col="item_code_normalized",
+        inv_sku_col="description_normalized",
         inv_qty_col="qty_adjusted",
+        vel_sku_col="product_name_normalized",
+        critical_days=3,   # ≤3 days = critical (reorder TODAY)
+        high_days=7,       # ≤7 days = high (reorder THIS WEEK)
+        medium_days=14,    # ≤14 days = medium
     )
 
     # Compute dead inventory
     dead = identify_dead_inventory(
-        data.inventory,
-        data.pos_transactions,
-        inv_sku_col="item_code_normalized",
+        inv_aggregated,
+        pos_clean,
+        inv_sku_col="description_normalized",
         inv_qty_col="qty_adjusted",
         inv_price_col="retail_price",
-        txn_sku_col="sku_normalized",
+        txn_sku_col="product_name_normalized",
         txn_date_col="date_parsed",
+        reference_date=reference_date,
     )
 
     # Channel comparison
     channel = compute_channel_comparison(data.pos_transactions, data.ecommerce_orders)
 
-    # Key metrics
-    metrics = compute_key_metrics(
-        data.inventory, data.pos_transactions, data.ecommerce_orders, stockout, dead
-    )
+    # Compute key metrics
+    pos_sales = pos_clean[pos_clean["quantity"] > 0]
+    ecom_sales = data.ecommerce_orders[data.ecommerce_orders["status"].isin(["completed", "shipped"])]
 
-    return data, velocity, stockout, dead, channel, metrics
+    total_pos_revenue = (pos_sales["quantity"] * pos_sales["unit_price"]).sum()
+    total_ecom_revenue = (ecom_sales["quantity"] * ecom_sales["unit_price"]).sum()
+
+    metrics = {
+        "total_skus_in_inventory": len(inv_aggregated),
+        "total_skus_raw": len(data.inventory),
+        "duplicates_found": len(data.inventory) - len(inv_aggregated),
+        "total_inventory_value": float(
+            (inv_aggregated["qty_adjusted"] * inv_aggregated["retail_price"]).sum()
+        ),
+        "total_pos_transactions": len(data.pos_transactions),
+        "total_pos_revenue": float(total_pos_revenue),
+        "total_ecom_orders": len(data.ecommerce_orders),
+        "total_ecom_revenue": float(total_ecom_revenue),
+        "products_at_stockout_risk": len(stockout),
+        "critical_stockout_count": len(stockout[stockout["risk_level"] == "critical"]),
+        "high_stockout_count": len(stockout[stockout["risk_level"] == "high"]),
+        "dead_inventory_value": float(dead["value_at_risk"].sum()) if len(dead) > 0 else 0,
+        "dead_inventory_count": len(dead),
+        "items_below_reorder_level": int(inv_aggregated["below_reorder_level"].sum()),
+        "placeholder_dates_filtered": len(data.pos_transactions) - len(pos_clean),
+    }
+
+    return data, inv_aggregated, velocity, stockout, dead, channel, metrics
 
 
 # Load data
 with st.spinner("Loading data..."):
-    data, velocity, stockout_risks, dead_inventory, channel_data, key_metrics = load_data()
+    data, inv_aggregated, velocity, stockout_risks, dead_inventory, channel_data, key_metrics = load_data()
 
 # --- Key Metrics Row ---
 st.header("Key Metrics")
@@ -90,14 +164,16 @@ with col1:
     st.metric(
         "Total Inventory Value",
         f"${key_metrics['total_inventory_value']:,.0f}",
+        delta=f"{key_metrics['total_skus_in_inventory']} products",
     )
 
 with col2:
     critical_count = key_metrics["critical_stockout_count"]
+    high_count = key_metrics["high_stockout_count"]
     st.metric(
         "Stockout Risks",
         f"{key_metrics['products_at_stockout_risk']}",
-        delta=f"{critical_count} critical",
+        delta=f"{critical_count} critical, {high_count} high",
         delta_color="inverse",
     )
 
@@ -105,7 +181,7 @@ with col3:
     st.metric(
         "Dead Stock Value",
         f"${key_metrics['dead_inventory_value']:,.0f}",
-        delta="60+ days no sales",
+        delta=f"{key_metrics['dead_inventory_count']} products",
         delta_color="inverse",
     )
 
@@ -282,39 +358,120 @@ else:
 st.divider()
 
 # --- Data Quality Section ---
-st.subheader("🔧 Data Quality Issues")
+st.subheader("🔧 Data Quality: Issues Found & Fixes Applied")
 
-quality_col1, quality_col2, quality_col3 = st.columns(3)
+st.markdown("""
+Before running the analysis, we identified and corrected several data quality issues.
+The numbers above reflect the **cleaned data** — here's what we fixed:
+""")
 
-with quality_col1:
-    st.markdown("**POS System**")
-    pos_report = data.quality_reports["pos"]
-    for issue in pos_report.issues[:5]:
-        icon = "🔴" if issue.severity == "critical" else "🟡" if issue.severity == "warning" else "🔵"
-        st.markdown(f"{icon} {issue.column}: {issue.description}")
+# Issues and Fixes Table
+quality_data = [
+    {
+        "Issue": "51 duplicate product codes",
+        "Impact": "Inventory was split across multiple records",
+        "Fix Applied": f"Aggregated by product name → {key_metrics['total_skus_raw']} records → {key_metrics['total_skus_in_inventory']} unique products",
+        "Status": "✅ Fixed"
+    },
+    {
+        "Issue": f"Placeholder dates (1900-01-01)",
+        "Impact": "Would skew velocity calculations",
+        "Fix Applied": f"Filtered {key_metrics['placeholder_dates_filtered']:,} test/void transactions",
+        "Status": "✅ Fixed"
+    },
+    {
+        "Issue": "No common product ID across systems",
+        "Impact": "Couldn't match inventory to sales",
+        "Fix Applied": "Matched by normalized product name (lowercase, stripped)",
+        "Status": "✅ Fixed"
+    },
+    {
+        "Issue": "Analysis date mismatch",
+        "Impact": "Running in 2026 on 2024 data would show everything as 'dead'",
+        "Fix Applied": "Used latest date in data (Dec 14, 2024) as reference",
+        "Status": "✅ Fixed"
+    },
+]
 
-with quality_col2:
-    st.markdown("**Inventory System**")
-    inv_report = data.quality_reports["inventory"]
-    for issue in inv_report.issues[:5]:
-        icon = "🔴" if issue.severity == "critical" else "🟡" if issue.severity == "warning" else "🔵"
-        st.markdown(f"{icon} {issue.column}: {issue.description}")
+import pandas as pd
+quality_df = pd.DataFrame(quality_data)
+st.dataframe(
+    quality_df,
+    use_container_width=True,
+    hide_index=True,
+    column_config={
+        "Issue": st.column_config.TextColumn("Issue Found", width="medium"),
+        "Impact": st.column_config.TextColumn("Impact", width="medium"),
+        "Fix Applied": st.column_config.TextColumn("Fix Applied", width="large"),
+        "Status": st.column_config.TextColumn("Status", width="small"),
+    }
+)
 
-with quality_col3:
-    st.markdown("**E-commerce**")
-    ecom_report = data.quality_reports["ecommerce"]
-    if ecom_report.issues:
-        for issue in ecom_report.issues[:5]:
+# Raw issues from quality reports (expandable)
+with st.expander("📋 View Raw Data Quality Reports"):
+    quality_col1, quality_col2, quality_col3 = st.columns(3)
+
+    with quality_col1:
+        st.markdown("**POS System**")
+        pos_report = data.quality_reports["pos"]
+        for issue in pos_report.issues[:5]:
             icon = "🔴" if issue.severity == "critical" else "🟡" if issue.severity == "warning" else "🔵"
             st.markdown(f"{icon} {issue.column}: {issue.description}")
-    else:
-        st.markdown("✅ No issues found")
+
+    with quality_col2:
+        st.markdown("**Inventory System**")
+        inv_report = data.quality_reports["inventory"]
+        for issue in inv_report.issues[:5]:
+            icon = "🔴" if issue.severity == "critical" else "🟡" if issue.severity == "warning" else "🔵"
+            st.markdown(f"{icon} {issue.column}: {issue.description}")
+
+    with quality_col3:
+        st.markdown("**E-commerce**")
+        ecom_report = data.quality_reports["ecommerce"]
+        if ecom_report.issues:
+            for issue in ecom_report.issues[:5]:
+                icon = "🔴" if issue.severity == "critical" else "🟡" if issue.severity == "warning" else "🔵"
+                st.markdown(f"{icon} {issue.column}: {issue.description}")
+        else:
+            st.markdown("✅ No issues found")
+
+# --- Methodology Section ---
+st.divider()
+st.subheader("📐 Methodology")
+
+method_col1, method_col2 = st.columns(2)
+
+with method_col1:
+    st.markdown("**Stockout Risk Calculation**")
+    st.markdown("""
+    1. Look at last 90 days of sales
+    2. Calculate: `Daily Sales = Units Sold ÷ 90`
+    3. Calculate: `Days of Stock = Current Inventory ÷ Daily Sales`
+
+    **Thresholds (adjusted for high-velocity retail):**
+    - 🔴 **Critical (≤3 days):** Reorder TODAY
+    - 🟠 **High (≤7 days):** Reorder THIS WEEK
+    - 🟡 **Medium (≤14 days):** Monitor closely
+    """)
+
+with method_col2:
+    st.markdown("**Why These Thresholds?**")
+    st.markdown("""
+    Standard retail uses 7/14/30 day thresholds, but this is a
+    **high-velocity retailer**:
+
+    - Average daily sales: **38 units/product**
+    - Median days of stock: **2.9 days**
+
+    Using standard thresholds would flag everything as "critical" —
+    not actionable. Our adjusted thresholds separate urgent from important.
+    """)
 
 # --- Footer ---
 st.divider()
 st.caption(
     "Built with Streamlit | Data period: Jan-Dec 2024 | "
     f"POS: {len(data.pos_transactions):,} txns | "
-    f"Inventory: {len(data.inventory):,} SKUs | "
+    f"Inventory: {key_metrics['total_skus_in_inventory']} products (de-duplicated from {key_metrics['total_skus_raw']}) | "
     f"E-commerce: {len(data.ecommerce_orders):,} orders"
 )

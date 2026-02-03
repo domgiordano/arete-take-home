@@ -212,3 +212,67 @@ The dashboard (Phase 3) is nice-to-have but the automated pipeline and alerts pr
 - Secrets Manager for API keys
 - VPC with private subnets for ECS tasks
 - CloudTrail for audit logging
+
+---
+
+## Lessons Learned: Data Quality Patterns
+
+Issues discovered during this analysis that should inform future data pipelines:
+
+### 1. Temporal Reference Issues ("Time Machine Problem")
+**Problem:** Using `datetime.now()` to calculate "days since last sale" when analyzing historical data produces wrong results (e.g., showing 2+ years of dead inventory when data is from 2024 but code runs in 2026).
+
+**Solution:** Always use `reference_date = max(transactions[date_col])` as "today" for historical analysis.
+
+**Future Implementation:** Add validation that warns if reference_date differs from system date by >30 days.
+
+### 2. Placeholder Dates
+**Problem:** System defaults like `1900-01-01` poison velocity calculations (appear as "never sold").
+
+**Solution:** Filter `dates < 2020` before analysis. These were test/void transactions.
+
+**Future Implementation:**
+- Add configurable `min_valid_date` parameter
+- Quarantine invalid dates rather than silently dropping
+- Alert if >1% of transactions have invalid dates
+
+### 3. Duplicate Product Identifiers
+**Problem:** 51 products had same name but different item codes (e.g., "Large Lamp" with codes 97054 and 75733). This:
+- Split inventory counts incorrectly
+- Made reorder thresholds unreliable (sum vs max)
+
+**Solution:** Aggregate by normalized product name:
+- `qty_adjusted`: sum (total stock)
+- `reorder_level`: max (conservative threshold)
+- `retail_price`: mean (for valuation)
+
+**Future Implementation:**
+- Add deduplication as a pipeline step before analysis
+- Generate "duplicate SKU" report for ops team to consolidate
+- Consider fuzzy matching for near-duplicates ("Large Lamp" vs "Lamp, Large")
+
+### 4. Cross-System Product Matching
+**Problem:** No common identifier across POS, Inventory, and E-commerce systems.
+
+**Solution:** Match by normalized product name (lowercase, stripped, standardized).
+
+**Future Implementation:**
+- Build a product master table with canonical IDs
+- Use embedding-based fuzzy matching for unmatched products
+- Generate "unmatched products" report for manual review
+
+---
+
+## Known Edge Cases (Not Yet Handled)
+
+These edge cases are documented but not critical for the current dataset:
+
+| Edge Case | Impact | Mitigation |
+|-----------|--------|------------|
+| NaN prices in inventory | `value_at_risk` becomes NaN | Add `fillna(0)` or exclude from dead inventory report |
+| Future dates in transactions | Incorrect velocity if dates > reference_date | Add `date <= reference_date` filter |
+| Empty input dataframes | Various function failures | Add empty check at start of pipeline |
+| Negative physical_count_override | Negative adjusted quantity | Add validation in loader |
+| Products in POS but not inventory | Missing from stockout analysis | Log as reconciliation gap |
+
+For a production system, each of these should have explicit handling and alerting.

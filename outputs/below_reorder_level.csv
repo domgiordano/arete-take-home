@@ -1,49 +1,32 @@
 item_code,description,qty_adjusted,reorder_level,category,location
 61663,Set of Rug,0.0,39,Garden,Store Floor
-62992,Modern Wall Art,1.0,34,Office,Overflow
-66886,Premium Candle,2.0,29,Gifts,Warehouse A
 69735,Large Bird Feeder,2.0,19,Home Decor,Overflow
-75318,Budget Rug,3.0,43,Gifts,Overflow
 86820,Premium Rug,3.0,44,Home Decor,Store Floor
-15311,Vintage Wall Art,4.0,30,Bedroom,Warehouse B
+75318,Budget Rug,3.0,43,Gifts,Overflow
 76557,Organic Desk Organizer,4.0,13,Seasonal,Overflow
-77969,Luxury Diffuser,4.0,32,Home Decor,Warehouse B
-74925,Set of Basket,5.0,42,Gifts,Warehouse B
-71228,Modern Planter,5.0,35,Bathroom,Warehouse A
-83969,Premium Garden Tools,5.0,19,Home Decor,Store Floor
+15311,Vintage Wall Art,4.0,30,Bedroom,Warehouse B
 90623,Rustic Vase,5.0,48,Garden,Backroom
+74925,Set of Basket,5.0,42,Gifts,Warehouse B
 18392,Set of Cushion,6.0,45,Gifts,Backroom
-49384,Professional Vase,7.0,46,Kids,Warehouse B
 38693,Rustic Cushion,8.0,38,Gifts,Warehouse B
-79479,Rustic Garden Tools,8.0,48,Seasonal,Overflow
 16910,Rustic Mirror,11.0,44,Gifts,Warehouse B
-36105,Set of Gift Box,11.0,41,Seasonal,Backroom
-18680,Handmade Ornament,11.0,27,Kids,Warehouse B
-97897,Premium Pen Holder,12.0,39,Office,Overflow
-49504,Basic Clock,12.0,49,Bathroom,Overflow
 41551,Professional Diffuser,12.0,46,Gifts,Store Floor
+49504,Basic Clock,12.0,49,Bathroom,Overflow
 16776,Organic Picture Frame,13.0,16,Seasonal,Backroom
-95616,Deluxe Throw Blanket,14.0,35,Kids,Overflow
 93879,Basic Wall Art,14.0,34,Kids,Warehouse A
 28047,Professional Throw Blanket,16.0,35,Outdoor,Warehouse B
-94896,Premium Garden Tools,17.0,46,Bedroom,Warehouse B
 77863,Set of Notebook,20.0,22,Kitchen,Store Floor
-40080,Deluxe Cutlery,21.0,35,Office,Backroom
-97455,Mini Mirror,21.0,42,Kids,Warehouse A
 12693,Budget Plate Set,21.0,34,Bathroom,Backroom
+83969,Premium Garden Tools,22.0,46,Home Decor,"Store Floor, Warehouse B"
 45222,Professional Candle Holder,22.0,43,Bathroom,Warehouse B
 99135,Professional Pen Holder,22.0,26,Garden,Overflow
 64268,Luxury Storage Box,22.0,28,Seasonal,Warehouse B
-77270,Classic Basket,24.0,39,Bathroom,Store Floor
-29457,Professional Ornament,24.0,31,Home Decor,Backroom
 72003,Large Candle,25.0,40,Kids,Warehouse A
 23545,Classic Cushion,26.0,38,Kids,Backroom
-11016,Professional Ornament,27.0,46,Garden,Store Floor
-62733,Professional Wall Art,28.0,44,Bathroom,Backroom
 10854,Deluxe Candle Holder,28.0,48,Office,Backroom
+62733,Professional Wall Art,28.0,44,Bathroom,Backroom
 33419,Budget Wrapping Paper,29.0,47,Seasonal,Backroom
 83530,Rustic Basket,32.0,39,Office,Warehouse B
+81295,Professional Vase,33.0,46,Kids,"Warehouse A, Warehouse B"
 42606,Basic Cushion,36.0,47,Bedroom,Warehouse B
-77172,Classic Diffuser,38.0,49,Bathroom,Warehouse B
 96779,Vintage Diffuser,41.0,43,Garden,Overflow
-23986,Rustic Garden Tools,44.0,45,Bathroom,Warehouse A

@@ -8,7 +8,7 @@
 
 ## The Bottom Line
 
-Your inventory is critically low across the board. **94% of products (247 of 265) will stock out within 7 days** at current sales velocity. We also found **$121K tied up in dead stock**, and **data quality issues** that make ongoing inventory management unreliable.
+After reconciling three separate data systems and correcting for data quality issues, we found **190 of 205 products are at stockout risk**, with **97 products critically low (less than 3 days of stock)**. We also identified **$121K tied up in dead stock** (15 new products never activated for sale), and **51 duplicate product entries** that were splitting inventory counts incorrectly.
 
 ---
 
@@ -16,41 +16,90 @@ Your inventory is critically low across the board. **94% of products (247 of 265
 
 | Metric | Value |
 |--------|-------|
-| Total Inventory Value | $1,976,208 |
-| Products at Stockout Risk | 250 items (94% of catalog) |
-| Critical (≤7 days stock) | 247 items |
+| Total Inventory Value | $1,971,540 |
+| Unique Products (after de-duplication) | 205 |
+| **Products at Stockout Risk** | **190 items (93% of catalog)** |
+| — Critical (≤3 days stock) | 97 items |
+| — High (≤7 days stock) | 93 items |
 | Dead Inventory Value | $121,174 |
-| Items Below Reorder Level | 48 items |
-| Items with Manual Overrides | 34 items |
+| Dead Inventory Items | 15 (new products not yet active) |
+| Items Below Reorder Level | 31 items |
+| Duplicate Product Names Found | 51 (affects 111 records) |
+
+---
+
+## How We Calculated These Numbers
+
+### Stockout Risk Methodology
+
+**The Question:** "How many days until we run out of each product?"
+
+**The Calculation:**
+1. We looked at the last 90 days of sales (Sep 15 - Dec 14, 2024)
+2. For each product, we calculated: `Average Daily Sales = Total Units Sold ÷ 90 days`
+3. Then: `Days of Stock = Current Inventory ÷ Average Daily Sales`
+
+**Example — "Set of Rug":**
+- Sold 3,091 units in the last 90 days
+- Average daily sales: 3,091 ÷ 90 = **34 units/day**
+- Current inventory: **0 units**
+- Days of stock: 0 ÷ 34 = **0 days** (Critical!)
+
+**Why These Thresholds?**
+This is a high-velocity retailer (average 38 units/day per product). We adjusted thresholds to be actionable:
+- **Critical (≤3 days):** Will stock out this week — reorder immediately
+- **High (≤7 days):** Will stock out in ~1 week — reorder this week
 
 ---
 
 ## Immediate Actions Required
 
-### 1. Emergency Reorder Required
-247 products (94% of inventory) have less than 7 days of stock remaining. This is a company-wide stockout crisis. The ops team needs to:
-- Immediately place orders with all major vendors
-- Prioritize highest-velocity items first
-- Consider expedited shipping for critical SKUs
+### 1. Emergency Reorder Required (97 Critical Items)
 
-**Risk if not addressed:** Widespread stockouts, significant lost revenue, customer attrition.
+97 products have less than 3 days of stock at current sales velocity. Top priorities:
 
-### 2. Address Dead Inventory ($121K)
-15 products sitting for 60+ days without a sale are tying up capital. Consider:
-- Markdown and clearance programs
-- Bundle deals with faster-moving items
-- Return-to-vendor agreements if available
+| Product | Current Stock | Daily Sales | Days Left |
+|---------|---------------|-------------|-----------|
+| Set of Rug | 0 | 34/day | 0 |
+| Large Bird Feeder | 2 | 33/day | <1 |
+| Premium Rug | 3 | 31/day | <1 |
+| Budget Rug | 3 | 28/day | <1 |
+| Organic Desk Organizer | 4 | 32/day | <1 |
 
-**Opportunity:** Free up ~$100K in working capital.
+**Risk if not addressed:** Lost sales, customer attrition. At 34 units/day, one week of stockout on "Set of Rug" = 238 missed sales.
+
+### 2. Activate or Clear Dead Inventory ($121K)
+
+15 "New Product" items have never been sold. These appear to be products added to inventory but never activated for sale:
+- Either launch these products with marketing support
+- Or return to vendor / write off if no longer viable
+
+**Opportunity:** Free up ~$121K in working capital.
 
 ### 3. Fix the Data Quality Issues
 
-Your POS system has inconsistent data entry that makes inventory tracking unreliable:
-- **4+ different date formats** across transactions
-- **20%+ of transactions** missing store information
-- **Different SKU formats** make it hard to match products across systems
+**Duplicate Products:** 51 product names exist with multiple item codes (e.g., "Handmade Notebook" has 3 different codes: 21534, 10206, 58925). This:
+- Splits inventory counts across multiple records
+- Makes reorder analysis unreliable
+- **Fix:** Consolidate to unique product identifiers
 
-The ops team is already working around this by putting corrections in spreadsheet notes—that's a symptom of the underlying problem.
+**POS Data Issues:**
+- 4+ different date formats across transactions
+- 20% of transactions missing store_id
+- Placeholder dates (1900-01-01) in test transactions
+
+---
+
+## Data Quality Issues We Corrected
+
+Before we could trust the numbers, we had to fix several issues:
+
+| Issue Found | How We Fixed It | Impact |
+|-------------|-----------------|--------|
+| 51 products had duplicate names with different item codes | Aggregated by name: summed quantities, used max reorder level | Without this, inventory was under-counted |
+| Placeholder dates (1900-01-01) | Filtered out dates before 2020 | These were test/void transactions that would have skewed velocity |
+| No common product ID across systems | Matched by normalized product name (lowercase, stripped) | Enabled cross-system analysis |
+| Running analysis in 2026 on 2024 data | Used max date in data (Dec 14, 2024) as reference, not today's date | Prevented "time machine" bug showing 2+ years of dead inventory |
 
 ---
 
@@ -58,25 +107,31 @@ The ops team is already working around this by putting corrections in spreadshee
 
 | Channel | Revenue | Avg Transaction | Return Rate |
 |---------|---------|-----------------|-------------|
-| In-Store | $642.9M | $1,391 | 3.2% |
-| Online | $23.2M | $232 | 6.3% |
+| In-Store | $642.9M (96.5%) | $1,391 | 3.2% |
+| Online | $23.2M (3.5%) | $232 | 6.3% |
 
-**Insight:** In-store drives 97% of revenue with higher transaction values (likely multiple items per visit). Online has a higher return rate, suggesting potential issues with product expectations or sizing.
+**Insight:** In-store drives 97% of revenue with 6x higher transaction values. Online has nearly double the return rate, suggesting potential issues with product expectations.
 
 ---
 
 ## What We'd Recommend Next
 
-1. **Quick win:** Run a clearance event on dead inventory this quarter
-2. **This month:** Implement standard date format and SKU rules in POS
-3. **Next quarter:** Create a master product catalog that all systems reference
-4. **Ongoing:** Set up automated stockout alerts based on the velocity analysis we built
+1. **This week:** Emergency reorder for 97 critical stockout items
+2. **This month:** Decide fate of 15 inactive "New Product" items
+3. **This quarter:** Consolidate duplicate product codes into master catalog
+4. **Ongoing:** Set up automated stockout alerts based on the velocity analysis
 
 ---
 
 ## Technical Note
 
-We've built a reusable analysis framework that can run this health check weekly. The next consultant can adapt it for ongoing monitoring or expand to new data sources.
+This analysis corrected for several data quality issues that would have skewed results:
+- **De-duplicated** 265 inventory records → 205 unique products
+- **Filtered** placeholder dates (1900-01-01) from velocity calculations
+- **Used relative dating** (latest sale as reference) instead of current date
+- **Adjusted thresholds** for high-velocity retail (critical ≤3 days vs. standard ≤7 days)
+
+We've built a reusable analysis framework that can run this health check weekly.
 
 ---
 
