@@ -129,6 +129,14 @@ def load_data():
     total_pos_revenue = (pos_sales["quantity"] * pos_sales["unit_price"]).sum()
     total_ecom_revenue = (ecom_sales["quantity"] * ecom_sales["unit_price"]).sum()
 
+    # Calculate daily revenue at risk for stockout items
+    # Revenue at risk = daily_sales × retail_price for each at-risk product
+    if len(stockout) > 0 and "avg_daily_sales" in stockout.columns and "retail_price" in stockout.columns:
+        stockout["daily_revenue_at_risk"] = stockout["avg_daily_sales"] * stockout["retail_price"]
+        daily_revenue_at_risk = float(stockout["daily_revenue_at_risk"].sum())
+    else:
+        daily_revenue_at_risk = 0.0
+
     metrics = {
         "total_skus_in_inventory": len(inv_aggregated),
         "total_skus_raw": len(data.inventory),
@@ -143,6 +151,7 @@ def load_data():
         "products_at_stockout_risk": len(stockout),
         "critical_stockout_count": len(stockout[stockout["risk_level"] == "critical"]),
         "high_stockout_count": len(stockout[stockout["risk_level"] == "high"]),
+        "daily_revenue_at_risk": daily_revenue_at_risk,
         "dead_inventory_value": float(dead["value_at_risk"].sum()) if len(dead) > 0 else 0,
         "dead_inventory_count": len(dead),
         "items_below_reorder_level": int(inv_aggregated["below_reorder_level"].sum()),
@@ -170,10 +179,11 @@ with col1:
 with col2:
     critical_count = key_metrics["critical_stockout_count"]
     high_count = key_metrics["high_stockout_count"]
+    daily_revenue_at_risk = key_metrics.get("daily_revenue_at_risk", 0)
     st.metric(
-        "Stockout Risks",
-        f"{key_metrics['products_at_stockout_risk']}",
-        delta=f"{critical_count} critical, {high_count} high",
+        "Daily Revenue at Risk",
+        f"~${daily_revenue_at_risk:,.0f}/day",
+        delta=f"{critical_count} critical, {high_count} high risk products",
         delta_color="inverse",
     )
 
@@ -212,7 +222,7 @@ with left_col:
 
         filtered = stockout_risks[stockout_risks["risk_level"].isin(risk_filter)]
 
-        # Display table
+        # Display table with revenue at risk
         display_cols = [
             "item_code",
             "description",
@@ -220,6 +230,7 @@ with left_col:
             "qty_adjusted",
             "avg_daily_sales",
             "days_of_stock",
+            "daily_revenue_at_risk",
             "risk_level",
         ]
         display_df = filtered[display_cols].copy()
@@ -230,10 +241,12 @@ with left_col:
             "Stock",
             "Daily Sales",
             "Days Left",
+            "$/Day at Risk",
             "Risk",
         ]
         display_df["Daily Sales"] = display_df["Daily Sales"].round(1)
         display_df["Days Left"] = display_df["Days Left"].round(0).astype(int)
+        display_df["$/Day at Risk"] = display_df["$/Day at Risk"].round(0)
 
         # Add risk emoji for better visibility
         risk_emoji = {"critical": "🔴", "high": "🟠", "medium": "🟡"}
@@ -247,6 +260,7 @@ with left_col:
                 "Stock": st.column_config.NumberColumn(format="%d"),
                 "Daily Sales": st.column_config.NumberColumn(format="%.1f"),
                 "Days Left": st.column_config.NumberColumn(format="%d"),
+                "$/Day at Risk": st.column_config.NumberColumn(format="$%,.0f"),
             }
         )
 

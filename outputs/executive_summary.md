@@ -10,11 +10,11 @@
 
 **We're losing money every day.** After reconciling three data systems, we found:
 
-- **$45K+ in daily revenue at risk** from 97 products that are critically low or out of stock
+- **~$320K/day in revenue at risk** from 97 critical products (≤3 days of stock)
 - **$121K tied up in dead inventory** — 15 products that were never activated for sale
 - **51 duplicate SKUs** causing inventory miscounts and unreliable reorder triggers
 
-The stockout problem is urgent: our top-selling products are running out. "Set of Rug" is already at zero inventory but sells 34 units/day — that's **~$4,700/day in lost sales** for just one product. Across all 97 critical items, we estimate **$45,000+ in daily revenue at risk** if stockouts aren't addressed immediately.
+The stockout problem is urgent: our top-selling products are running out. "Set of Rug" is already at zero inventory but sells 34 units/day at $57.82 each — that's **~$2,000/day in lost sales** for just one product. Across all 97 critical items, we estimate **~$320,000/day in revenue at risk** if stockouts continue.
 
 *Note: Revenue at risk = daily sales velocity × retail price. Products already at zero stock are losing this revenue TODAY.*
 
@@ -24,12 +24,12 @@ The stockout problem is urgent: our top-selling products are running out. "Set o
 
 | Metric | Value | Business Impact |
 |--------|-------|-----------------|
-| **Daily Revenue at Risk** | **~$45,000+** | Lost sales from stockouts |
+| **Daily Revenue at Risk (Critical)** | **~$320,000** | 97 products ≤3 days stock |
+| **Daily Revenue at Risk (All)** | **~$616,000** | All 190 at-risk products |
 | **Dead Inventory Value** | **$121,174** | Capital tied up, recoverable |
 | Products at Stockout Risk | 190 items (93%) | Widespread issue |
 | — Critical (≤3 days stock) | 97 items | Reorder TODAY |
 | — High (≤7 days stock) | 93 items | Reorder THIS WEEK |
-| Items Already at Zero Stock | 1+ items | Losing revenue NOW |
 | Duplicate Product Names | 51 | Miscounted inventory |
 | Total Inventory Value | $1,971,540 | — |
 
@@ -61,22 +61,21 @@ This is a high-velocity retailer (average 38 units/day per product). We adjusted
 
 ## Immediate Actions Required
 
-### 1. Emergency Reorder Required (97 Critical Items) — ~$45K/day at Risk
+### 1. Emergency Reorder Required (97 Critical Items) — ~$320K/day at Risk
 
 97 products have less than 3 days of stock at current sales velocity. **Prioritized by daily revenue at risk:**
 
-| Product | Stock | Daily Sales | Days Left | Est. Daily Revenue at Risk |
-|---------|-------|-------------|-----------|---------------------------|
-| Set of Rug | 0 | 34/day | **0** | ~$4,700/day |
-| Large Bird Feeder | 2 | 33/day | <1 | ~$4,500/day |
-| Premium Rug | 3 | 31/day | <1 | ~$4,300/day |
-| Budget Rug | 3 | 28/day | <1 | ~$3,900/day |
-| Organic Desk Organizer | 4 | 32/day | <1 | ~$4,400/day |
-| **Top 5 Total** | — | — | — | **~$21,800/day** |
+| Product | Stock | Daily Sales | Unit Price | Days Left | Daily Revenue at Risk |
+|---------|-------|-------------|------------|-----------|----------------------|
+| Organic Desk Organizer | 4 | 32/day | $147.97 | <1 | **$4,796/day** |
+| Set of Cushion | 6 | 31/day | $146.29 | <1 | **$4,496/day** |
+| Premium Rug | 3 | 31/day | $121.99 | <1 | **$3,744/day** |
+| Large Bird Feeder | 2 | 33/day | $78.26 | <1 | **$2,596/day** |
+| Set of Rug | 0 | 34/day | $57.82 | **0** | **$1,986/day** |
 
-*Revenue estimates based on daily sales × average retail price (~$138/unit)*
+*Revenue = daily sales × actual retail price from inventory data*
 
-**What this means:** Every day we don't reorder, we lose ~$45K+ in potential sales across all 97 critical items. "Set of Rug" alone costs us ~$33K/week in lost revenue.
+**What this means:** The 97 critical items represent ~$320K/day in revenue at risk. Products like "Organic Desk Organizer" have higher revenue impact than "Set of Rug" despite similar velocity — because unit price matters. **Prioritize reorders by revenue at risk, not just days of stock.**
 
 ### 2. Activate or Clear Dead Inventory ($121K)
 
